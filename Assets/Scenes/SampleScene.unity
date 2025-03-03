@@ -1993,6 +1993,7 @@ GameObject:
   - component: {fileID: 1094153589}
   - component: {fileID: 1094153592}
   - component: {fileID: 1094153593}
+  - component: {fileID: 1094153594}
   m_Layer: 0
   m_Name: ModelsController
   m_TagString: Untagged
@@ -2014,10 +2015,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentModelText: {fileID: 1575444834}
   modelPrefabs:
-  - {fileID: 193099453543007438, guid: 0267fe4c526292f41a5ed3651f7bc758, type: 3}
+  - {fileID: 2252407397815585457, guid: 0267fe4c526292f41a5ed3651f7bc758, type: 3}
   - {fileID: 689224872446205380, guid: a29ea9d90ed00db4397b7037b9229f0f, type: 3}
-  - {fileID: 6132491509476564872, guid: d7887c0bb6b13194898a51e86841f4ce, type: 3}
-  - {fileID: 4839201043653063014, guid: c718fd8ebf2e2634286c6196cd7e4ad6, type: 3}
+  - {fileID: 2669065004789693851, guid: d7887c0bb6b13194898a51e86841f4ce, type: 3}
+  - {fileID: 3469232298766001424, guid: c718fd8ebf2e2634286c6196cd7e4ad6, type: 3}
   arAnchorManager: {fileID: 922165106}
 --- !u!114 &1094153590
 MonoBehaviour:
@@ -2082,6 +2083,20 @@ MonoBehaviour:
   modelSpawnManager: {fileID: 1094153590}
   animationDependentUiElements: {fileID: 1689681482}
   dropdown: {fileID: 1689681483}
+--- !u!114 &1094153594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094153588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a00ff361b1b2a4ba915696028fe60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelSpawnManager: {fileID: 1094153590}
+  rotationSpeed: 0.2
 --- !u!1 &1242692548
 GameObject:
   m_ObjectHideFlags: 0

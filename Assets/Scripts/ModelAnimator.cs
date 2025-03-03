@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
@@ -33,17 +34,26 @@ public class ModelAnimator : MonoBehaviour
 
     private void OnArAnchorChanged(ARAnchor arAnchor)
     {
-        if (arAnchor != null && arAnchor.TryGetComponent(out Animator animator))
+        if (arAnchor == null)
         {
-            _currentAnimator = animator;
-            dropdown.ClearOptions();
-            dropdown.AddOptions(animator.runtimeAnimatorController.animationClips.Select(ac => ac.name).ToList());
-            var currentOption =
-                dropdown.options.SingleOrDefault(o => o.text == animator.GetCurrentAnimatorClipInfo(0)[0].clip.name); // TODO: optimize
-            dropdown.value = currentOption != null ? dropdown.options.IndexOf(currentOption) : 0;
-            animationDependentUiElements.SetActive(true);
+            animationDependentUiElements.SetActive(false);
             return;
         }
-        animationDependentUiElements.SetActive(false);
+        if (!arAnchor.TryGetComponent(out Animator animator))
+        {
+            if (!arAnchor.TryGetComponent(out AnimatableModel animatableModel))
+            {
+                animationDependentUiElements.SetActive(false);
+                return;
+            }
+            animator = animatableModel.Animator;
+        }
+        _currentAnimator = animator;
+        dropdown.ClearOptions();
+        dropdown.AddOptions(animator.runtimeAnimatorController.animationClips.Select(ac => ac.name).ToList());
+        var currentOption =
+            dropdown.options.SingleOrDefault(o => o.text == animator.GetCurrentAnimatorClipInfo(0)[0].clip.name); // TODO: optimize
+        dropdown.value = currentOption != null ? dropdown.options.IndexOf(currentOption) : 0;
+        animationDependentUiElements.SetActive(true);
     }
 }
