@@ -23,7 +23,6 @@ public class ModelAnimator : MonoBehaviour
     {
         if (_currentAnimator != null)
         {
-            Debug.Log($"Play animation {dropdown.options[arg0].text}");
             _currentAnimator.Play(dropdown.options[arg0].text, 0);
         }
         else

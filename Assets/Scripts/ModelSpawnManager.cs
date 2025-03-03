@@ -17,7 +17,7 @@ public class ModelSpawnManager : MonoBehaviour
 
     public Action<ARAnchor> OnArAnchorChanged;
     private ARAnchor _currentArAnchor;
-    private ARAnchor CurrentArAnchor
+    public ARAnchor CurrentArAnchor
     {
         get => _currentArAnchor;
         set
