@@ -48,27 +48,25 @@ public class ModelColorizer : MonoBehaviour
         CurrentColor = new Color(_currentColor.r, _currentColor.g, value);
     }
 
-    private void OnCurrentArAnchorChanged(ARAnchor currentModel)
+    private void OnCurrentArAnchorChanged(ARAnchor currentAnchor)
     {
-        Debug.Log("OnCurrentModelChanged");
-        if (currentModel.TryGetComponent(out ColorableModel colorableModel))
+        if (currentAnchor is null)
         {
-            Debug.Log("get color");
-            CurrentColor = colorableModel.Color;
-            Debug.Log("Color get and set to current");
+            return;
         }
-        else if (currentModel.TryGetComponent(out MeshRenderer meshRenderer))
+        if (currentAnchor.TryGetComponent(out ColorableModel colorableModel))
         {
-            Debug.Log("get color mesh renderer");
+            CurrentColor = colorableModel.Color;
+        }
+        else if (currentAnchor.TryGetComponent(out MeshRenderer meshRenderer))
+        {
             CurrentColor = meshRenderer.material.color;
-            Debug.Log("Mesh renderer Color get and set to current");
         }
         else
         {
-            Debug.LogError("No ColorableModel or MeshRenderer found on " + currentModel.name);
+            Debug.LogError("No ColorableModel or MeshRenderer found on " + currentAnchor.name);
         }
         
-        Debug.Log("update sliders");
         UpdateSliders();
     }
     

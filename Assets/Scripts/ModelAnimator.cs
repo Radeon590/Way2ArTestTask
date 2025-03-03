@@ -42,10 +42,8 @@ public class ModelAnimator : MonoBehaviour
                 dropdown.options.SingleOrDefault(o => o.text == animator.GetCurrentAnimatorClipInfo(0)[0].clip.name); // TODO: optimize
             dropdown.value = currentOption != null ? dropdown.options.IndexOf(currentOption) : 0;
             animationDependentUiElements.SetActive(true);
+            return;
         }
-        else
-        {
-            animationDependentUiElements.SetActive(false);
-        }
+        animationDependentUiElements.SetActive(false);
     }
 }
