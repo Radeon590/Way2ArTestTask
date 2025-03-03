@@ -37,6 +37,7 @@ public class ModelSpawnManager : MonoBehaviour
             }
             _currentArAnchor = value;
             OnArAnchorChanged?.Invoke(_currentArAnchor);
+            UpdateModelIsAbleToSpawnUiElements();
         }
     }
 
@@ -48,14 +49,7 @@ public class ModelSpawnManager : MonoBehaviour
         set
         {
             _planesCount = value;
-            if (IsPlanesDetected && CurrentArAnchor is null)
-            {
-                modelIsAbleToSpawnUiElements.SetActive(true);
-            }
-            else
-            {
-                modelIsAbleToSpawnUiElements.SetActive(false);
-            }
+            UpdateModelIsAbleToSpawnUiElements();
         }
     }
     private bool IsPlanesDetected => PlanesCount > 0;
@@ -105,5 +99,17 @@ public class ModelSpawnManager : MonoBehaviour
     public void SpawnNewModelToggle()
     {
         CurrentArAnchor = null;
+    }
+
+    private void UpdateModelIsAbleToSpawnUiElements()
+    {
+        if (IsPlanesDetected && CurrentArAnchor is null)
+        {
+            modelIsAbleToSpawnUiElements.SetActive(true);
+        }
+        else
+        {
+            modelIsAbleToSpawnUiElements.SetActive(false);
+        }
     }
 }
