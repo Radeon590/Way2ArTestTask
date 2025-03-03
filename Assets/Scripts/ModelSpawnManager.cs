@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -13,7 +14,8 @@ public class ModelSpawnManager : MonoBehaviour
     [SerializeField] private ARPlaneManager arPlaneManager;
     [SerializeField] private ARAnchorManager arAnchorManager;
     [SerializeField] private ARRaycastManager arRaycastManager;
-    
+
+    public Action<ARAnchor> OnArAnchorChanged;
     private ARAnchor _currentArAnchor;
     private ARAnchor CurrentArAnchor
     {
@@ -34,6 +36,7 @@ public class ModelSpawnManager : MonoBehaviour
                 modelSpawnDependentUiElements.SetActive(true);
             }
             _currentArAnchor = value;
+            OnArAnchorChanged?.Invoke(_currentArAnchor);
         }
     }
 
@@ -80,6 +83,11 @@ public class ModelSpawnManager : MonoBehaviour
                     List<ARRaycastHit> hits = new List<ARRaycastHit>();
                     if (arRaycastManager.Raycast(touch.position, hits, TrackableType.Planes))
                     {
+                        if (EventSystem.current.IsPointerOverGameObject())
+                        {
+                            Debug.LogWarning("Pointer is over game object");
+                            return;
+                        }
                         Pose hitPose = hits[0].pose;
 
                         ARPlane plane = hits[0].trackable as ARPlane;
